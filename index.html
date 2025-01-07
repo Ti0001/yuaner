@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的点点滴滴，时光的每一帧</title>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #ecf0f1, #bdc3c7);
+            color: #34495e;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 50px 0;
+            font-size: 48px;
+            font-weight: 700;
+            color: #2980b9;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-style: italic;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 网格布局 */
+        .timeline-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+            padding: 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        /* 时间线卡片样式 */
+        .timeline-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-card .time {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .timeline-card .title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2980b9;
+            margin-bottom: 15px;
+        }
+
+        .timeline-card .description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-left: 4px solid #2980b9;
+            background-color: #f4f6f7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-card .description:hover {
+            transform: translateX(5px);
+        }
+
+        .timeline-card .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .timeline-card img {
+            width: calc(33.33% - 20px);
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-card img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 弹窗样式 */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 小屏设备优化 */
+        @media (max-width: 768px) {
+            .timeline-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .timeline-card .description {
+                font-size: 14px;
+                padding: 15px;
+            }
+
+            .timeline-card img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>我们的点点滴滴，时光的每一帧</h1>
+<div class="timeline-container" id="timeline"></div>
+
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="Enlarged Image">
+</div>
+
+<script>
+    const timelineData = [
+        {
+            time: "2024年2月",
+            title: "遇见你，心动如初",
+            description: "新的一年，和你在一起的每一刻都让我觉得无比幸福。第一次看到你，我就知道，你就是我一直在等的人。从那一刻起，我们的世界就开始紧紧相连，走向未来的每一步都充满了期待。",
+            images: [
+                "./images/2024-02/1.jpg",
+                "./images/2024-02/2.jpg",
+                "./images/2024-02/3.jpg",
+                "./images/2024-02/4.jpg",
+                "./images/2024-02/5.jpg",
+                "./images/2024-02/6.jpg",
+                "./images/2024-02/7.jpg",
+                "./images/2024-02/8.jpg",
+                "./images/2024-02/9.jpg",
+                "./images/2024-02/10.jpg"
+            ]
+        },
+        {
+            time: "2024年5月",
+            title: "相隔千里，终于相见",
+            description: "终于有机会回到家乡，与你重逢。虽然我们分开了一段时间，但回到你身边，感觉一切都变得特别珍贵。那一刻，我更加坚信，你就是我想要共度余生的人。",
+            images: [
+                "./images/2024-05/1.jpg",
+                "./images/2024-05/2.jpg",
+                "./images/2024-05/3.jpg",
+                "./images/2024-05/4.jpg",
+                "./images/2024-05/5.jpg",
+                "./images/2024-05/6.jpg",
+                "./images/2024-05/7.jpg",
+                "./images/2024-05/8.jpg",
+                "./images/2024-05/9.jpg",
+                "./images/2024-05/10.jpg",
+                "./images/2024-05/11.jpg",
+                "./images/2024-05/12.jpg",
+                "./images/2024-05/13.jpg"
+            ]
+        },
+        {
+            time: "2024年8月",
+            title: "每一次通话，都是我最温暖的时光",
+            description: "即使相隔千里，每次和你通话都是我一天中最期待的时刻。你透过屏幕的笑脸，让我觉得距离不再那么遥远。每一次的对话，每一次的截屏，都是我珍藏的回忆，心里一直暖暖的。",
+            images: ["./images/2024-08/1.jpg", "./images/2024-08/2.jpg"]
+        },
+        {
+            time: "2024年10月",
+            title: "国庆与你，最美的陪伴",
+            description: "这个国庆，你带我去看爷爷奶奶。虽然只能在路上等你，但心里满是温暖和幸福。和你在一起的每一刻，都是那么珍贵，哪怕只是静静地等待，心里也觉得特别满足，因为你在身边。",
+            images: [
+                "./images/2024-10/2.jpg",
+                "./images/2024-10/3.jpg",
+                "./images/2024-10/4.jpg",
+                "./images/2024-10/7.jpg",
+                "./images/2024-10/8.jpg",
+                "./images/2024-10/11.jpg",
+                "./images/2024-10/12.jpg",
+                "./images/2024-10/13.jpg",
+                "./images/2024-10/14.jpg",
+                "./images/2024-10/15.jpg",
+                "./images/2024-10/16.jpg",
+                "./images/2024-10/17.jpg",
+                "./images/2024-10/18.jpg",
+                "./images/2024-10/19.jpg",
+                "./images/2024-10/20.jpg",
+                "./images/2024-10/21.jpg"
+            ]
+        }
+    ];
+    const timeline = document.getElementById("timeline");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+
+    timelineData.forEach((item) => {
+        const timelineCard = document.createElement("div");
+        timelineCard.classList.add("timeline-card");
+
+        const time = document.createElement("div");
+        time.classList.add("time");
+        time.textContent = item.time;
+
+        const title = document.createElement("div");
+        title.classList.add("title");
+        title.textContent = item.title;
+
+        const description = document.createElement("div");
+        description.classList.add("description");
+        description.textContent = item.description;
+
+        const imageGallery = document.createElement("div");
+        imageGallery.classList.add("image-gallery");
+
+        item.images.forEach((imageSrc) => {
+            const img = document.createElement("img");
+            img.src = imageSrc;
+            img.alt = item.title;
+            img.onclick = () => {
+                lightbox.style.display = "flex";
+                lightboxImg.src = imageSrc;
+            };
+            imageGallery.appendChild(img);
+        });
+
+        timelineCard.appendChild(time);
+        timelineCard.appendChild(title);
+        timelineCard.appendChild(description);
+        timelineCard.appendChild(imageGallery);
+
+        timeline.appendChild(timelineCard);
+    });
+
+    const closeLightbox = () => {
+        lightbox.style.display = "none";
+    };
+</script>
+</body>
+</html>
